@@ -4,6 +4,8 @@ One command switches Claude Code into **NASA Space Apps hackathon mode** for a r
 
 Built for Claude running on a home server over SSH (tmux + Remote Control). Teammates on Windows get the same mode with `hackmode.bat`.
 
+How it works, how the code is laid out, and how to build more modes: see [`docs/`](docs/README.md).
+
 ## What the mode is
 
 | Layer | What it does |
