@@ -1,0 +1,7 @@
+# Hooks are bash scripts that Claude Code also runs through Git Bash on Windows: they must keep LF endings.
+* text=auto eol=lf
+*.sh text eol=lf
+# cmd.exe misparses batch files with LF endings.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf

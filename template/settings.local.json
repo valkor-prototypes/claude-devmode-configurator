@@ -1,0 +1,67 @@
+{
+  "outputStyle": "Hackathon",
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "additionalDirectories": __ADDITIONAL_DIRS__,
+    "allow": [
+      "Bash(ls *)", "Bash(pwd)", "Bash(cd *)", "Bash(cat *)", "Bash(head *)", "Bash(tail *)", "Bash(wc *)",
+      "Bash(sort *)", "Bash(uniq *)", "Bash(cut *)", "Bash(tr *)", "Bash(diff *)", "Bash(grep *)", "Bash(rg *)",
+      "Bash(find *)", "Bash(tree *)", "Bash(file *)", "Bash(stat *)", "Bash(du *)", "Bash(df *)", "Bash(which *)",
+      "Bash(echo *)", "Bash(printf *)", "Bash(date *)", "Bash(sleep *)", "Bash(true)", "Bash(test *)",
+      "Bash(basename *)", "Bash(dirname *)", "Bash(realpath *)", "Bash(jq *)", "Bash(awk *)", "Bash(sed *)",
+      "Bash(mkdir *)", "Bash(touch *)", "Bash(cp *)", "Bash(mv *)", "Bash(rm *)", "Bash(chmod *)", "Bash(ln *)",
+      "Bash(tar *)", "Bash(zip *)", "Bash(unzip *)", "Bash(gzip *)", "Bash(gunzip *)",
+      "Bash(source *)", "Bash(export *)", "Bash(ps *)", "Bash(lsof *)", "Bash(kill *)", "Bash(pkill *)",
+      "Bash(git *)",
+      "Bash(gh issue *)", "Bash(gh pr *)", "Bash(gh api *)", "Bash(gh repo view *)", "Bash(gh label *)",
+      "Bash(gh run *)", "Bash(gh search *)", "Bash(gh status *)", "Bash(gh auth status *)",
+      "Bash(npm *)", "Bash(npx *)", "Bash(pnpm *)", "Bash(yarn *)", "Bash(bun *)", "Bash(bunx *)", "Bash(node *)",
+      "Bash(deno *)", "Bash(tsc *)",
+      "Bash(python *)", "Bash(python3 *)", "Bash(pip *)", "Bash(pip3 *)", "Bash(uv *)", "Bash(uvx *)",
+      "Bash(poetry *)", "Bash(conda *)", "Bash(pytest *)", "Bash(jupyter *)", "Bash(streamlit *)",
+      "Bash(flask *)", "Bash(uvicorn *)", "Bash(gunicorn *)", "Bash(fastapi *)",
+      "Bash(go *)", "Bash(cargo *)", "Bash(make *)", "Bash(java *)", "Bash(mvn *)", "Bash(gradle *)",
+      "Bash(./gradlew *)", "Bash(dotnet *)",
+      "Bash(curl *)", "Bash(wget *)", "Bash(sqlite3 *)", "Bash(ffmpeg *)", "Bash(ffprobe *)", "Bash(magick *)",
+      "Bash(gdalinfo *)", "Bash(gdal_translate *)", "Bash(gdalwarp *)", "Bash(ogr2ogr *)", "Bash(ogrinfo *)",
+      "Bash(ncdump *)", "Bash(h5dump *)", "Bash(h5ls *)",
+      "Bash(docker ps *)", "Bash(docker logs *)", "Bash(docker images *)",
+      "Bash(bash .claude/hackmode/hooks/context.sh *)",
+      "WebFetch", "WebSearch"
+    ],
+    "deny": [
+      "Bash(sudo *)", "Bash(su *)", "Bash(doas *)",
+      "Bash(git push --force*)", "Bash(git push -f*)", "Bash(git push *--force*)", "Bash(git push * -f)",
+      "Bash(git push * -f *)", "Bash(git push * main)", "Bash(git push * master)", "Bash(git push *:main)",
+      "Bash(git push *:master)", "Bash(git push *--mirror*)",
+      "Bash(git reset --hard*)", "Bash(git clean *)", "Bash(git filter-branch *)", "Bash(git filter-repo *)",
+      "Bash(gh pr merge *)", "Bash(gh repo delete *)", "Bash(gh repo edit *)", "Bash(gh repo archive *)",
+      "Bash(gh repo rename *)", "Bash(gh release delete *)", "Bash(gh secret *)", "Bash(gh auth token *)",
+      "Bash(gh auth logout *)", "Bash(gh auth refresh *)", "Bash(gh issue delete *)", "Bash(gh issue transfer *)",
+      "Bash(docker system prune *)", "Bash(docker volume prune *)", "Bash(docker volume rm *)",
+      "Bash(shutdown *)", "Bash(reboot *)", "Bash(halt *)", "Bash(poweroff *)", "Bash(mkfs *)", "Bash(dd *)",
+      "Bash(npm publish *)", "Bash(pnpm publish *)", "Bash(yarn publish *)", "Bash(twine upload *)",
+      "Bash(cargo publish *)",
+      "Read(.env)", "Read(.env.local)", "Read(.env.*.local)", "Read(.env.production)", "Read(.env.development)",
+      "Read(**/*.pem)", "Read(**/*.key)", "Read(~/.ssh/**)", "Read(~/.aws/**)", "Read(~/.config/gh/**)",
+      "Read(~/.netrc)", "Read(~/.git-credentials)",
+      "Edit(.claude/settings.json)", "Edit(.claude/settings.local.json)", "Edit(.claude/hackmode/hooks/**)",
+      "Edit(.claude/hackmode/config)", "Edit(CLAUDE.local.md)", "Edit(.git/**)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      { "hooks": [ { "type": "command", "command": "bash '__HOOKS__/context.sh' session", "timeout": 15 } ] }
+    ],
+    "UserPromptSubmit": [
+      { "hooks": [ { "type": "command", "command": "bash '__HOOKS__/context.sh' prompt", "timeout": 10 } ] }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|PowerShell|Edit|Write|MultiEdit|NotebookEdit",
+        "hooks": [ { "type": "command", "command": "bash '__HOOKS__/guard.sh'", "timeout": 15 } ]
+      }
+    ]
+  },
+  "statusLine": { "type": "command", "command": "bash '__HOOKS__/statusline.sh'", "padding": 0 }
+}
